@@ -9,8 +9,9 @@ const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const formidable = require("formidable");
 
+const port = process.env.PORT || 5000;
 const app = express();
-app.listen(5000, () => {
+app.listen(port, () => {
     console.log("running on 5000...");
 });
 //Middelware
