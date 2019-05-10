@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Mongo files upload</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center display-4 my-4">Mongo File Upload</h1>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="custom-file mb-3">
+                        <input type="file" name="file" id="file" class="custom-file-input">
+                        <label for="file" class="custom-file-label">Choose file</label>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block">
+                </form>
+                <hr>
+                <% if(files){ %>
+                    <% files.forEach(function(file){ %>
+                        <div class="card card-body mb-3">
+                            <% if(file.isImage){ %>
+                                <%= file.filename %>
+                                <img src="image/<%= file.filename %>" alt="">
+                            <% } else { %>
+                                <%= file.filename %>
+                                <audio controls>
+                                    <source src="/audio/<%= file.filename %>" type='audio/mp3'>
+                                </audio>
+                            <% }%>
+                            <form action="/files/<%= file._id %>?_method=DELETE" method="post">
+                                <button class="btn btn-danger btn-block mt-4">Delete</button>
+                            </form>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+
+                <% } %>
+                <hr>
+                <a href="files" class="link">Files</a>
+                <a href="audio/74a7412185b0eec33b9beed82a0ec4ea.mp3">Beat it</a>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    img{
+        width: 100%;
+    }
+</style>
+</html>
